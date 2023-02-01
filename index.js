@@ -11,23 +11,26 @@ const scheduled_messages = require(`./resources/scheduledMessages.json`);
 const utils = require("./utils/utils.js");
 
 // Create a new discord client
-const Intents = Discord.Intents;
+const Intents = Discord.GatewayIntentBits;
+const Partials = Discord.Partials;
+
 const client = new Discord.Client({
-  partials: ["MESSAGE", "GUILD_MEMBER", "REACTION", "USER"],
+  partials: [Partials.Message, Partials.GuildMember, Partials.Reaction, Partials.User],
   intents: [
-    Intents.FLAGS.GUILDS,
-    Intents.FLAGS.GUILD_MEMBERS,
-    Intents.FLAGS.GUILD_BANS,
-    Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS,
-    Intents.FLAGS.GUILD_PRESENCES,
-    Intents.FLAGS.GUILD_MESSAGES,
-    Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
-    Intents.FLAGS.GUILD_MESSAGE_TYPING,
-    Intents.FLAGS.DIRECT_MESSAGES,
-    Intents.FLAGS.DIRECT_MESSAGE_REACTIONS,
-    Intents.FLAGS.DIRECT_MESSAGE_TYPING,
+    Intents.Guilds,
+    Intents.GuildMembers,
+    Intents.GuildModeration,
+    Intents.GuildEmojisAndStickers,
+    Intents.GuildPresences,
+    Intents.GuildMembers,
+    Intents.GuildMessages,
+    Intents.GuildMessageReactions,
+    Intents.GuildMessageTyping,
+    Intents.DirectMessages,
+    Intents.DirectMessageReactions,
+    Intents.DirectMessageTyping,
   ],
-  ws: { intents: Discord.Intents.ALL },
+  ws: { intents: Intents.All },
 });
 
 client.commands = new Discord.Collection();
