@@ -26,6 +26,7 @@ const client = new Discord.Client({
     Intents.GuildMessages,
     Intents.GuildMessageReactions,
     Intents.GuildMessageTyping,
+    Intents.MessageContent,
     Intents.DirectMessages,
     Intents.DirectMessageReactions,
     Intents.DirectMessageTyping,
