@@ -37,7 +37,9 @@ module.exports = {
 
     utils.logMessage("createGroup", `Creando equipo ${teamName} con usuarios: ${users}`);
     const guild = message.guild;
-    const category = await guild.channels.create(teamName, { type: "GUILD_CATEGORY" });
+    const category = await guild.channels.create(teamName, {
+      type: Discord.ChannelType.GuildCategory,
+    });
     const textChannel = await guild.channels.create(teamName, { type: "GUILD_TEXT" });
     const voiceChannel = await guild.channels.create(teamName, { type: "GUILD_VOICE" });
 
