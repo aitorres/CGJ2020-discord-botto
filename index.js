@@ -22,7 +22,6 @@ const client = new Discord.Client({
     Intents.GuildModeration,
     Intents.GuildEmojisAndStickers,
     Intents.GuildPresences,
-    Intents.GuildMembers,
     Intents.GuildMessages,
     Intents.GuildMessageReactions,
     Intents.GuildMessageTyping,
@@ -30,8 +29,7 @@ const client = new Discord.Client({
     Intents.DirectMessages,
     Intents.DirectMessageReactions,
     Intents.DirectMessageTyping,
-  ],
-  ws: { intents: Intents.All },
+  ]
 });
 
 client.commands = new Discord.Collection();
