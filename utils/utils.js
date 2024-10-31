@@ -90,7 +90,7 @@ module.exports = {
         welcomeMessage = fileContent;
       })
       .catch((err) =>
-        this.logMessage("main", `No se pudo inicializar mensaje de bienvenida por: ${err}`)
+        this.logMessage("main", `No se pudo inicializar mensaje de bienvenida por: ${err}`),
       );
 
     userJoinRuleEvent.welcomeMessageEvent(client, welcomeMessage);
@@ -118,7 +118,7 @@ module.exports = {
             "messageAdmins",
             `No se pudo enviar mensaje a admin ${guildMember.user.tag}, intento ${
               i + 1
-            }. Error: ${err}`
+            }. Error: ${err}`,
           );
           messageSent = false;
         });
@@ -135,7 +135,7 @@ module.exports = {
     if (!couldReachAnAdmin) {
       this.logMessage(
         "admin",
-        `No se pudo contactar a NINGÚN ADMIN por el siguiente mensaje: ${message}.`
+        `No se pudo contactar a NINGÚN ADMIN por el siguiente mensaje: ${message}.`,
       );
     }
   },

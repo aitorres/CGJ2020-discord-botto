@@ -17,7 +17,7 @@ module.exports = {
       await author
         .send("Para llamar a un admin, incluye un mensaje con la razon de su contacto!")
         .catch((err) =>
-          utils.logMessage("admin", `No se pudo enviar mensaje a usuario por: ${err}`)
+          utils.logMessage("admin", `No se pudo enviar mensaje a usuario por: ${err}`),
         );
       return;
     }
@@ -25,7 +25,7 @@ module.exports = {
     await author
       .send(
         `Un admin ya fue notificado y te contactará lo mas pronto posible!` +
-          `\nDisculpa los inconvenientes.`
+          `\nDisculpa los inconvenientes.`,
       )
       .catch((err) => utils.logMessage("admin", `No se pudo enviar mensaje a usuario por: ${err}`));
 

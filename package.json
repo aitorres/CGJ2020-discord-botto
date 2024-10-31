@@ -4,13 +4,18 @@
   "description": "Bot de Discord para el Caracas Game Jam",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "lint": "eslint .",
+    "prettier": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+    "lint-and-prettier": "npm run prettier && npm run lint"
   },
   "dependencies": {
     "discord.js": "^14.16.3"
   },
   "devDependencies": {
     "eslint": "^9.13.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
     "prettier": "^3.3.3"
   },
   "prettier": {

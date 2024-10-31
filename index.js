@@ -29,7 +29,7 @@ const client = new Discord.Client({
     Intents.DirectMessages,
     Intents.DirectMessageReactions,
     Intents.DirectMessageTyping,
-  ]
+  ],
 });
 
 client.commands = new Discord.Collection();
@@ -72,7 +72,7 @@ client.once("ready", () => {
 
     utils.logMessage(
       "main",
-      `  * Scheduling message '\u001b[36m${m.title}\u001b[0m' to \u001b[32m${m.date}\u001b[0m`
+      `  * Scheduling message '\u001b[36m${m.title}\u001b[0m' to \u001b[32m${m.date}\u001b[0m`,
     );
 
     // Set timeout to wait for 'timeToWait' milliseconds to send message

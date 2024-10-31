@@ -31,14 +31,14 @@ module.exports = {
 
     utils.logMessage(
       "clear",
-      `Intentando borrar ${amount - 1} mensajes de ${message.channel.name}`
+      `Intentando borrar ${amount - 1} mensajes de ${message.channel.name}`,
     );
 
     if (amount - 1 >= 100) {
       await message.author
         .send(
           "Lo siento, no puedes borrar mas de 99 mensajes" +
-            " al mismo tiempo para evitar problemas con el servidor."
+            " al mismo tiempo para evitar problemas con el servidor.",
         )
         .catch((err) => {
           utils.logMessage("clear", `No se pudo enviar mensaje, error: ${err}`);

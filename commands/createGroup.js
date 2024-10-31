@@ -52,7 +52,7 @@ module.exports = {
 
     utils.logMessage(
       "createGroup",
-      `Asociando canales de voz y texto a la categoría del equipo ${teamName}`
+      `Asociando canales de voz y texto a la categoría del equipo ${teamName}`,
     );
     await textChannel.setParent(category);
     await voiceChannel.setParent(category);

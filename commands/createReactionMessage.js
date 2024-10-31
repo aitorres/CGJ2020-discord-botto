@@ -17,7 +17,7 @@ module.exports = {
       await message.reply("Remember to pass the correct number of parametes!").catch((err) => {
         utils.logMessage(
           "reaction",
-          `There was a problem replying the author of the mesage. Problem: ${err}`
+          `There was a problem replying the author of the mesage. Problem: ${err}`,
         );
       });
       return;
@@ -60,7 +60,7 @@ module.exports = {
         utils.logMessage("reaction", err);
         utils.logMessage(
           "reaction",
-          `Problem reacting with ${emojiID}.\n` + `Probably non valid emoji`
+          `Problem reacting with ${emojiID}.\n` + `Probably non valid emoji`,
         );
         return;
       }
@@ -90,12 +90,12 @@ module.exports = {
         toJsonify.datas.push({ emojiID: emoji, roleID: role });
       });
       fs.writeFile(path, JSON.stringify(toJsonify), () =>
-        utils.logMessage("reaction", `Role file created successfuly`)
+        utils.logMessage("reaction", `Role file created successfuly`),
       );
     } catch (error) {
       console.warn(
         `Role backup file failed to generate. Try using the command again.` +
-          `\nIf not, beware of bot crashes or try creating your own file.`
+          `\nIf not, beware of bot crashes or try creating your own file.`,
       );
     }
   },

@@ -52,7 +52,7 @@ module.exports = {
       if (reactionMessageObject.reactionMap.has(idToUse)) {
         utils.logMessage(
           "refresRolesh",
-          `Role associated: ${guildRoles.get(reactionMessageObject.reactionMap.get(idToUse)).name}`
+          `Role associated: ${guildRoles.get(reactionMessageObject.reactionMap.get(idToUse)).name}`,
         );
         validReactions.push(msgReact);
       } else {
@@ -83,7 +83,7 @@ module.exports = {
         } catch (error) {
           utils.logMessage("refreshRoles", error);
         }
-      })
+      }),
     );
 
     const guildUsers = guild.members.cache;
@@ -94,7 +94,7 @@ module.exports = {
         processUser(
           gUser,
           guildRoles.get(reactionMessageObject.reactionMap.get(idToUse)),
-          reactUserMap.get(r)
+          reactUserMap.get(r),
         );
       });
     });

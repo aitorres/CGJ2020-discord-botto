@@ -13,14 +13,26 @@ module.exports = {
         reactRolesData.messageID === undefined ||
         !messageReaction.message.guild ||
         user.bot
-      )
+      ) {
         return;
+      }
+
+      utils.logMessage(
+        "roleReactAddEvent",
+        `Reacción detectada: ${messageReaction.emoji.toString()} ` +
+          `(mensaje: ${messageReaction.message.id}, ` +
+          `canal: ${messageReaction.message.channelId})`,
+      );
 
       if (
         reactRolesData.channelID !== messageReaction.message.channel.id ||
         reactRolesData.messageID !== messageReaction.message.id
       ) {
-        utils.logMessage("roleReactAddEvent", "Ignorando reacción en canal o mensaje incorrecto");
+        utils.logMessage(
+          "roleReactAddEvent",
+          `Ignorando reacción en canal o mensaje incorrecto. Esperado: ` +
+            `Canal: ${reactRolesData.channelID} - Mensaje: ${reactRolesData.messageID}`,
+        );
         return;
       }
 
@@ -37,7 +49,7 @@ module.exports = {
         if (!role) {
           utils.logMessage(
             "roleReactAddEvent",
-            `Emoji incorrecto (${messageReaction.emoji.toString()})`
+            `Emoji incorrecto (${messageReaction.emoji.toString()})`,
           );
           await messageReaction.remove();
           return;
@@ -52,7 +64,7 @@ module.exports = {
         await user.send(
           "Hola! El bot se crasheó :( ...\n" +
             "¿Podrías mandarnos un dm para solventarlo?\n" +
-            "\nAtt~ Organizadores del Caracas Game Jam"
+            "\nAtt~ Organizadores del Caracas Game Jam",
         );
       }
     });
@@ -78,7 +90,7 @@ module.exports = {
       ) {
         utils.logMessage(
           "roleReactRemoveEvent",
-          "Ignorando reacción en canal o mensaje incorrecto"
+          "Ignorando reacción en canal o mensaje incorrecto",
         );
         return;
       }
