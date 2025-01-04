@@ -13,7 +13,5 @@ module.exports = {
   welcomeChannelId: process.env.WELCOME_CHANNEL_ID,
   acceptedUserRoleId: process.env.ACCEPTED_USER_ROLE_ID,
   guildId: process.env.GUILD_ID,
-  welcomeMessageFilePath: process.env.WELCOME_MESSAGE_FILE_PATH,
-  rolesMessageFilePath: process.env.ROLES_MESSAGE_FILE_PATH,
   prefix: process.env.PREFIX || "!",
 };

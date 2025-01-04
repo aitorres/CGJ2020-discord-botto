@@ -1,8 +1,6 @@
 const Discord = require("discord.js");
-const fs = require("fs");
 
 const config = require("./config.js");
-const userJoinRuleEvent = require("../events/joinUserEvent.js");
 
 module.exports = {
   /**
@@ -55,48 +53,6 @@ module.exports = {
   logMessage(category, message) {
     const timestamp = new Date().toUTCString();
     console.log(`[${timestamp}] [${category}] ${message}`);
-  },
-
-  /**
-   * Lee el contenido de un archivo y lo retorna como texto
-   * @param {*} path
-   * @returns Contenido del archivo como texto
-   */
-  async fileToText(path) {
-    var fileContent;
-
-    try {
-      this.logMessage("fileToText", `Reading content from file ${path}`);
-      var prom = await fs.promises.readFile(path, {
-        encoding: "utf8",
-        flag: "r",
-      });
-      fileContent = prom.toString();
-    } catch (error) {
-      if (error.code != "ENOENT") throw error;
-    }
-
-    return fileContent;
-  },
-
-  /**
-   * @summary Inicializa el mensaje de bienvenida del bot
-   * @param {Discord.Client} client Cliente de Discord
-   * @param {string} welcomeMessage Mensaje inicial de bienvenida (por defecto)
-   */
-  async initWelcomeMessageEvent(client, welcomeMessage) {
-    await this.fileToText(config.welcomeMessageFilePath)
-      .then((fileContent) => {
-        welcomeMessage = fileContent;
-      })
-      .catch((err) =>
-        this.logMessage(
-          "initWelcomeMessageEvent",
-          `No se pudo inicializar mensaje de bienvenida por: ${err}`,
-        ),
-      );
-
-    userJoinRuleEvent.welcomeMessageEvent(client, welcomeMessage);
   },
 
   /**

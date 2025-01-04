@@ -5,9 +5,11 @@ const Discord = require("discord.js");
 
 // Project files
 const roleReactionEvent = require("./events/roleReactEvent.js");
+const joinUserEvent = require("./events/joinUserEvent.js");
 const config = require("./utils/config.js");
 
 const utils = require("./utils/utils.js");
+const botMessages = require("./resources/botMessages.js");
 const botSetup = require("./utils/botSetup.js");
 
 // Create a new discord client
@@ -45,6 +47,8 @@ client.once("ready", () => {
   // Scheduling bot messages (resources, etc)
   botSetup.scheduleBotMessages(client);
 
+  // TODO: refresh roles upon restart? maybe also refresh every so often to keep them up to date?
+
   // Letting the user know that the client is ready
   utils.logMessage("main", "Client ready!");
 });
@@ -55,13 +59,10 @@ const reactRolesData = {
   reactionMap: new Map(),
 };
 
-// Loading messages files
-utils.initWelcomeMessageEvent(client, "¡Bienvenido al Caracas Game Jam!");
+// Setting up welcome message event
+joinUserEvent.setupWelcomeMessageOnJoin(client);
 
-var reaction_msg = "¡Reacciona para obtener roles aquí!";
-reaction_msg = utils.fileToText(config.rolesMessageFilePath).then((data) => {
-  reaction_msg = data;
-});
+// Setting up reaction roles event handlers
 roleReactionEvent.roleReactRemoveEvent(client, reactRolesData);
 roleReactionEvent.roleReactAddEvent(client, reactRolesData);
 
@@ -94,7 +95,7 @@ client.on("messageCreate", async (message) => {
   if (command == "reaction" && isAdmin) {
     client.commands
       .get("reaction")
-      .execute(message, args, reactRolesData, reaction_msg, config.rolesTableFilePath);
+      .execute(message, args, reactRolesData, botMessages.rolesMessage, config.rolesTableFilePath);
   } else if (command === "acepto") {
     client.commands
       .get("acepto")
