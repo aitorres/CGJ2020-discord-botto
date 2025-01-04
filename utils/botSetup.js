@@ -1,7 +1,7 @@
 const { Collection } = require("discord.js");
 const FileSystem = require("fs");
 
-const scheduledMessages = require(`../resources/scheduledMessages.json`);
+const scheduledMessages = require(`../resources/scheduledMessages.js`);
 const config = require("./config.js");
 const utils = require("./utils.js");
 
