@@ -1,6 +1,7 @@
 const { Collection } = require("discord.js");
 const FileSystem = require("fs");
 
+const scheduledMessages = require(`../resources/scheduledMessages.json`);
 const config = require("./config.js");
 const utils = require("./utils.js");
 
@@ -47,4 +48,50 @@ module.exports = {
       throw error;
     }
   },
+
+  /**
+   * Programa los mensajes que el bot debe enviar (con enlaces a recursos)
+   * en el canal de mensajes programados. Los mensajes se leen
+   * desde un archivo de texto y se envían en momentos específicos.
+   * @param {Discord.Client} client cliente de discord.js
+   */
+  scheduleBotMessages(client) {
+    utils.logMessage("scheduleBotMessages", "Scheduling bot messages...");
+
+    if (!config.scheduledMessagesChannelId) {
+      utils.logMessage("scheduleBotMessages", "WARNING: No scheduled messages channel ID provided.");
+      return;
+    }
+
+    const messages = scheduledMessages.messages;
+    utils.logMessage("scheduleBotMessages", `Found ${messages.length} scheduled messages.`);
+
+    for (const message of messages) {
+      // Calculating time between now and the scheduled datetime
+      const timeToWait = new Date(message.date) - Date.now();
+
+      // If timeToWait is negative, we were supposed to send the message in the past.
+      // We skip it.
+      if (timeToWait < 0) {
+        utils.logMessage(
+          "scheduleBotMessages",
+          `\tWARNING: Skipping message '${message.title}' because it was scheduled in the past.`,
+        );
+        continue;
+      }
+
+      utils.logMessage(
+        "scheduleBotMessages",
+        `\tScheduling message '${message.title}' to ${message.date}`,
+      );
+
+      // Set timeout to wait for 'timeToWait' milliseconds to send message
+      setTimeout(() => {
+        const channel = client.channels.cache.get(config.scheduledMessagesChannelId);
+        channel.send(message.message + " link: " + message.link);
+      }, timeToWait);
+    }
+
+    utils.logMessage("scheduleBotMessages", "Bot messages scheduled!");
+  }
 };

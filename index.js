@@ -6,7 +6,7 @@ const Discord = require("discord.js");
 // Project files
 const roleReactionEvent = require("./events/roleReactEvent.js");
 const config = require("./utils/config.js");
-const scheduled_messages = require(`./resources/scheduledMessages.json`);
+
 const utils = require("./utils/utils.js");
 const botSetup = require("./utils/botSetup.js");
 
@@ -42,32 +42,11 @@ botSetup.logInDiscordBot(client);
 
 // Once client is ready, we start everything!
 client.once("ready", () => {
+  // Scheduling bot messages (resources, etc)
+  botSetup.scheduleBotMessages(client);
+
+  // Letting the user know that the client is ready
   utils.logMessage("main", "Client ready!");
-
-  // Set up scheduled messages
-  if (!config.scheduledMessagesChannelId) return;
-
-  utils.logMessage("main", "Scheduling messages:");
-  for (const m of scheduled_messages.messages) {
-    // milliseconds between scheduled date and now
-    const timeToWait = new Date(m.date) - Date.now();
-
-    if (timeToWait < 0)
-      // message already send or scheduled to some time in the past
-      continue;
-
-    utils.logMessage(
-      "main",
-      `  * Scheduling message '\u001b[36m${m.title}\u001b[0m' to \u001b[32m${m.date}\u001b[0m`,
-    );
-
-    // Set timeout to wait for 'timeToWait' milliseconds to send message
-    setTimeout(() => {
-      const channel = client.channels.cache.get(config.scheduledMessagesChannelId);
-      channel.send(m.message + " link: " + m.link);
-    }, timeToWait);
-  }
-  utils.logMessage("main", "Messages scheduled!");
 });
 
 const reactRolesData = {
