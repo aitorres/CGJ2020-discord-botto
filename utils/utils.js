@@ -60,11 +60,10 @@ module.exports = {
   /**
    * Lee el contenido de un archivo y lo retorna como texto
    * @param {*} path
-   * @param {*} defaultContent contenido a retornar por defecto
    * @returns Contenido del archivo como texto
    */
-  async fileToText(path, defaultContent) {
-    var fileContent = defaultContent;
+  async fileToText(path) {
+    var fileContent;
 
     try {
       var prom = await fs.promises.readFile(path, {
@@ -85,7 +84,7 @@ module.exports = {
    * @param {string} welcomeMessage Mensaje inicial de bienvenida (por defecto)
    */
   async initWelcomeMessageEvent(client, welcomeMessage) {
-    await this.fileToText(conf.welcome_path, welcomeMessage)
+    await this.fileToText(conf.welcome_path)
       .then((fileContent) => {
         welcomeMessage = fileContent;
       })

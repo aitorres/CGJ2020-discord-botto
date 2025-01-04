@@ -91,11 +91,10 @@ const reactRolesData = {
 };
 
 // Loading messages files
-var welcome_msg = "¡Bienvenido al CGJ 2022!";
-utils.initWelcomeMessageEvent(client, welcome_msg);
+utils.initWelcomeMessageEvent(client, "¡Bienvenido al Caracas Game Jam!");
 
 var reaction_msg = "¡Reacciona para obtener roles aquí!";
-reaction_msg = utils.fileToText(conf.roles_msg_path, reaction_msg).then((data) => {
+reaction_msg = utils.fileToText(conf.roles_msg_path).then((data) => {
   reaction_msg = data;
 });
 roleReactionEvent.roleReactRemoveEvent(client, reactRolesData);
