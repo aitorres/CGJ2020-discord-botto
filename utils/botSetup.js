@@ -59,7 +59,10 @@ module.exports = {
     utils.logMessage("scheduleBotMessages", "Scheduling bot messages...");
 
     if (!config.scheduledMessagesChannelId) {
-      utils.logMessage("scheduleBotMessages", "WARNING: No scheduled messages channel ID provided.");
+      utils.logMessage(
+        "scheduleBotMessages",
+        "WARNING: No scheduled messages channel ID provided.",
+      );
       return;
     }
 
@@ -93,5 +96,5 @@ module.exports = {
     }
 
     utils.logMessage("scheduleBotMessages", "Bot messages scheduled!");
-  }
+  },
 };

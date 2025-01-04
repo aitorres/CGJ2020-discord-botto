@@ -9,7 +9,7 @@ export default [
       },
     },
     rules: {
-      "max-len": [2, { code: 100, tabWidth: 2, ignoreUrls: true }],
+      "max-len": [2, { code: 120, tabWidth: 2, ignoreUrls: true }],
     },
   },
   {
