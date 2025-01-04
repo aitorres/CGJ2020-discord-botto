@@ -13,7 +13,7 @@ Algunas de las funcionalidades del bot incluyen:
 
 ## Requerimientos
 
-El bot está escrito en `Node.JS`, ha sido probado con versiones de Node desde la `v14` hasta la `v17`.
+El bot está escrito en `Node.JS`, ha sido probado con versiones de Node desde la `v14` hasta la `v23`.
 
 ## Instalación
 
