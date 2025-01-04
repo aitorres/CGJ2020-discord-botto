@@ -20,7 +20,7 @@ const client = new Discord.Client({
     Intents.Guilds,
     Intents.GuildMembers,
     Intents.GuildModeration,
-    Intents.GuildEmojisAndStickers,
+    Intents.GuildExpressions,
     Intents.GuildPresences,
     Intents.GuildMessages,
     Intents.GuildMessageReactions,
