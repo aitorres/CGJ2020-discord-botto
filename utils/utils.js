@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const fs = require("fs");
 
-const conf = require("../resources/config.json");
+const config = require("./config.js");
 const userJoinRuleEvent = require("../events/joinUserEvent.js");
 
 module.exports = {
@@ -12,7 +12,7 @@ module.exports = {
    * @returns true o false dependiendo de si el usuario es admin
    */
   async isAdmin(user, guild) {
-    return await this.hasRole(user, guild, conf.admin_id);
+    return await this.hasRole(user, guild, config.adminRoleId);
   },
 
   /**
@@ -66,6 +66,7 @@ module.exports = {
     var fileContent;
 
     try {
+      this.logMessage("fileToText", `Reading content from file ${path}`);
       var prom = await fs.promises.readFile(path, {
         encoding: "utf8",
         flag: "r",
@@ -84,12 +85,12 @@ module.exports = {
    * @param {string} welcomeMessage Mensaje inicial de bienvenida (por defecto)
    */
   async initWelcomeMessageEvent(client, welcomeMessage) {
-    await this.fileToText(conf.welcome_path)
+    await this.fileToText(config.welcomeMessageFilePath)
       .then((fileContent) => {
         welcomeMessage = fileContent;
       })
       .catch((err) =>
-        this.logMessage("main", `No se pudo inicializar mensaje de bienvenida por: ${err}`),
+        this.logMessage("initWelcomeMessageEvent", `No se pudo inicializar mensaje de bienvenida por: ${err}`),
       );
 
     userJoinRuleEvent.welcomeMessageEvent(client, welcomeMessage);
