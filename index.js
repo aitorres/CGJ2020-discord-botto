@@ -12,6 +12,8 @@ const utils = require("./utils/utils.js");
 const botMessages = require("./resources/botMessages.js");
 const botSetup = require("./utils/botSetup.js");
 
+const { refreshCallback } = require("./commands/refreshRoles.js");
+
 // Create a new discord client
 const client = new Discord.Client({
   partials: [
@@ -42,22 +44,22 @@ botSetup.setupClientCommands(client);
 // Logging into Discord with the config's token
 botSetup.logInDiscordBot(client);
 
+const reactRolesData = {
+  reactionMap: new Map(),
+};
+
 // Once client is ready, we start everything!
-client.once("ready", () => {
+client.once("ready", async () => {
   // Scheduling bot messages (resources, etc)
   botSetup.scheduleBotMessages(client);
 
-  // TODO: refresh roles upon restart? maybe also refresh every so often to keep them up to date?
+  // Refreshing roles upon restart
+  const guild = client.guilds.cache.get(config.guildId);
+  refreshCallback(guild, reactRolesData);
 
   // Letting the user know that the client is ready
   utils.logMessage("main", "Client ready!");
 });
-
-const reactRolesData = {
-  channelID: config.rolesChannelId,
-  messageID: config.rolesMessageId,
-  reactionMap: new Map(),
-};
 
 // Setting up welcome message event
 joinUserEvent.setupWelcomeMessageOnJoin(client);
@@ -92,10 +94,10 @@ client.on("messageCreate", async (message) => {
   const command = args.shift().toLowerCase();
   const isAdmin = await utils.isAdmin(message.author, message.guild);
 
-  if (command == "reaction" && isAdmin) {
+  if (command == "createReactionMessage" && isAdmin) {
     client.commands
-      .get("reaction")
-      .execute(message, args, reactRolesData, botMessages.rolesMessage, config.rolesTableFilePath);
+      .get("createReactionMessage")
+      .execute(message, args, reactRolesData, botMessages.rolesMessage);
   } else if (command === "acepto") {
     client.commands
       .get("acepto")
@@ -111,7 +113,7 @@ client.on("messageCreate", async (message) => {
   } else if (command == "crear_grupo" && isAdmin) {
     client.commands.get("crear_grupo").execute(message, args, config.acceptedUserRoleId);
   } else if (command == `refresh` && isAdmin) {
-    client.commands.get("refresh").execute(message, reactRolesData, config.rolesTableFilePath);
+    client.commands.get("refresh").execute(message, reactRolesData);
   } else if (command === "admin") {
     client.commands.get("admin").execute(message, args, config.adminRoleId);
   }

@@ -2,42 +2,62 @@ const utils = require("../utils/utils.js");
 const Discord = require("discord.js");
 const fs = require("fs");
 
+const botMessages = require("../resources/botMessages.js");
+const config = require("../utils/config.js");
+
 module.exports = {
-  name: "reaction",
-  description: "React to assign roles!",
+  name: "createReactionMessage",
+  description: "Create reaction message for users to acquire server roles",
   /**
    * @param {Discord.Message} message Command
    * @param {string[]} args Command args
    * @param {Object} message_object Objeto con informacion de emoji/roles
-   * @param {string} reaction_message Contenido de mensaje a reaccionar
-   * @param {string} path Path output JSON tabla emoji/roles
    */
-  async execute(message, args, message_object, reaction_message, path) {
+  async execute(message, args, message_object) {
+    // Ensuring the message is sent in the correct format
     if (args.length <= 0 || args.length % 2 !== 0) {
-      await message.reply("Remember to pass the correct number of parametes!").catch((err) => {
+      await message
+        .reply("Remember to pass the correct number of parameters: <emoji> <role> <emoji> <role>!")
+        .catch((err) => {
+          utils.logMessage(
+            "createReactionMessage",
+            `There was a problem replying the author of the mesage. Problem: ${err}`,
+          );
+        });
+      return;
+    }
+
+    // Verifying the message was sent on the roles channel
+    if (message.channel.id !== config.rolesChannelId) {
+      await message.reply("This command can only be used in the roles channel.").catch((err) => {
         utils.logMessage(
-          "reaction",
+          "createReactionMessage",
           `There was a problem replying the author of the mesage. Problem: ${err}`,
         );
       });
       return;
     }
 
+    // Sending the role message on the channel
     var reactMessage;
-    // Restarting/Initializing Roles <--> Reaction object data
     try {
-      reactMessage = await message.channel.send(reaction_message);
+      reactMessage = await message.channel.send(botMessages.rolesMessage);
     } catch (err) {
-      utils.logMessage("reaction", `Problem sending reaction message`);
+      utils.logMessage("createReactionMessage", `Problem sending reaction message`);
       await message.channel
-        .send(`There was a problem setting up` + `the reaction message.`)
+        .send(`There was a problem setting up the reaction message.`)
         .catch(() => {});
       return;
     }
 
-    const reactChannel = message.channel;
-    message_object.channelID = reactChannel.id;
-    message_object.messageID = reactMessage.id;
+    // Log the reactMessage ID and instruct the user to update the bot server
+    // environment config and restart the bot
+    utils.logMessage(
+      "createReactionMessage",
+      `Created reaction message ${reactMessage.id} on channel ${message.channel.id}`,
+    );
+
+    // We're clearing the previous roles map, if it exists
     message_object.reactionMap.clear();
 
     for (var i = 0; i < Math.floor(args.length / 2); ++i) {
@@ -50,16 +70,16 @@ module.exports = {
         emojiID = utils.extractIDFromCustomEmoji(args[ie]);
       } else {
         emojiID = args[ie];
-        utils.logMessage("reaction", emojiID);
+        utils.logMessage("createReactionMessage", emojiID);
       }
 
       // Reacting to the message
       try {
         await reactMessage.react(emojiID);
       } catch (err) {
-        utils.logMessage("reaction", err);
+        utils.logMessage("createReactionMessage", err);
         utils.logMessage(
-          "reaction",
+          "createReactionMessage",
           `Problem reacting with ${emojiID}.\n` + `Probably non valid emoji`,
         );
         return;
@@ -76,27 +96,6 @@ module.exports = {
         return;
       }
       message_object.reactionMap.set(emojiID, role.id);
-    }
-
-    // Generating JSON with Roles <--> Reaction data for
-    // crash recovering purposes
-    var toJsonify = {
-      datas: [],
-      message_id: reactMessage.id,
-      channel_id: reactChannel.id,
-    };
-    try {
-      message_object.reactionMap.forEach((role, emoji) => {
-        toJsonify.datas.push({ emojiID: emoji, roleID: role });
-      });
-      fs.writeFile(path, JSON.stringify(toJsonify), () =>
-        utils.logMessage("reaction", `Role file created successfuly`),
-      );
-    } catch (error) {
-      console.warn(
-        `Role backup file failed to generate. Try using the command again.` +
-          `\nIf not, beware of bot crashes or try creating your own file.`,
-      );
     }
   },
 };
