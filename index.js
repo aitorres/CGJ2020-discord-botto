@@ -8,7 +8,7 @@ const roleReactionEvent = require("./events/roleReactEvent.js");
 const config = require("./utils/config.js");
 const scheduled_messages = require(`./resources/scheduledMessages.json`);
 const utils = require("./utils/utils.js");
-const { setupClientCommands } = require("./utils/botSetup.js");
+const botSetup = require("./utils/botSetup.js");
 
 // Create a new discord client
 const client = new Discord.Client({
@@ -35,19 +35,10 @@ const client = new Discord.Client({
 });
 
 // Setting up commands
-setupClientCommands(client);
+botSetup.setupClientCommands(client);
 
 // Logging into Discord with the config's token
-const token = config.token;
-try {
-  utils.logMessage("main", "Attempting to log into the server...");
-
-  client.login(token).then(() => {
-    utils.logMessage("main", `Successfully logged into the server`);
-  });
-} catch {
-  utils.logMessage("main", `Error login into the server!`);
-}
+botSetup.logInDiscordBot(client);
 
 // Once client is ready, we start everything!
 client.once("ready", () => {
