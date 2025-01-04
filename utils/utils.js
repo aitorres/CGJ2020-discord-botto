@@ -90,7 +90,10 @@ module.exports = {
         welcomeMessage = fileContent;
       })
       .catch((err) =>
-        this.logMessage("initWelcomeMessageEvent", `No se pudo inicializar mensaje de bienvenida por: ${err}`),
+        this.logMessage(
+          "initWelcomeMessageEvent",
+          `No se pudo inicializar mensaje de bienvenida por: ${err}`,
+        ),
       );
 
     userJoinRuleEvent.welcomeMessageEvent(client, welcomeMessage);

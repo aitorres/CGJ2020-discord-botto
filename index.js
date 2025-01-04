@@ -11,24 +11,26 @@ const utils = require("./utils/utils.js");
 const { setupClientCommands } = require("./utils/botSetup.js");
 
 // Create a new discord client
-const Intents = Discord.GatewayIntentBits;
-const Partials = Discord.Partials;
-
 const client = new Discord.Client({
-  partials: [Partials.Message, Partials.GuildMember, Partials.Reaction, Partials.User],
+  partials: [
+    Discord.Partials.Message,
+    Discord.Partials.GuildMember,
+    Discord.Partials.Reaction,
+    Discord.Partials.User,
+  ],
   intents: [
-    Intents.Guilds,
-    Intents.GuildMembers,
-    Intents.GuildModeration,
-    Intents.GuildExpressions,
-    Intents.GuildPresences,
-    Intents.GuildMessages,
-    Intents.GuildMessageReactions,
-    Intents.GuildMessageTyping,
-    Intents.MessageContent,
-    Intents.DirectMessages,
-    Intents.DirectMessageReactions,
-    Intents.DirectMessageTyping,
+    Discord.GatewayIntentBits.Guilds,
+    Discord.GatewayIntentBits.GuildMembers,
+    Discord.GatewayIntentBits.GuildModeration,
+    Discord.GatewayIntentBits.GuildExpressions,
+    Discord.GatewayIntentBits.GuildPresences,
+    Discord.GatewayIntentBits.GuildMessages,
+    Discord.GatewayIntentBits.GuildMessageReactions,
+    Discord.GatewayIntentBits.GuildMessageTyping,
+    Discord.GatewayIntentBits.MessageContent,
+    Discord.GatewayIntentBits.DirectMessages,
+    Discord.GatewayIntentBits.DirectMessageReactions,
+    Discord.GatewayIntentBits.DirectMessageTyping,
   ],
 });
 
@@ -126,7 +128,13 @@ client.on("messageCreate", async (message) => {
   } else if (command === "acepto") {
     client.commands
       .get("acepto")
-      .execute(message, args, config.welcomeChannelId, config.acceptedUserRoleId, config.adminRoleId);
+      .execute(
+        message,
+        args,
+        config.welcomeChannelId,
+        config.acceptedUserRoleId,
+        config.adminRoleId,
+      );
   } else if (command === "clear" && isAdmin) {
     client.commands.get("clear").execute(message, args);
   } else if (command == "crear_grupo" && isAdmin) {
