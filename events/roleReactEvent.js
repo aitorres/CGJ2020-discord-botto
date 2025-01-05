@@ -54,7 +54,7 @@ module.exports = {
 
         utils.logMessage(
           "roleReactAddEvent",
-          `Received reaction ${messageReaction.emoji.toString()}, adding role ${roleToRemove}`,
+          `Received reaction ${messageReaction.emoji.toString()}, adding role ${role}`,
         );
 
         await messageReaction.message.guild.members.cache.get(user.id).roles.add(role);
