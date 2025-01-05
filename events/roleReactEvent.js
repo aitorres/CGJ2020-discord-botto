@@ -59,12 +59,8 @@ module.exports = {
 
         await messageReaction.message.guild.members.cache.get(user.id).roles.add(role);
       } catch (error) {
+        utils.logMessage("roleReactAddEvent", "Error adding role: " + error);
         await messageReaction.users.remove(user);
-        await user.send(
-          "Hola! El bot se crasheó :( ...\n" +
-            "¿Podrías mandarnos un dm para solventarlo?\n" +
-            "\nAtt~ Organizadores del Caracas Game Jam",
-        );
       }
     });
   },

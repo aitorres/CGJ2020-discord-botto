@@ -23,6 +23,36 @@ Luego, copia o renombra el archivo [`.env.sample`](./.env.sample) como `.env` y 
 
 Puedes obtener los IDs requeridos desde la interfaz de Discord habilitando el _Developer mode_ en las opciones avanzadas.
 
+## Despliegue
+
+Instala `pm2` en el servidor en donde se va a ejecutar el bot:
+
+```bash
+npm install pm2 -g
+```
+
+Clona el repositorio, configura el archivo `.env`, ingresa a la carpeta raíz (donde está el archivo `index.js`) y despliega con `pm2`:
+
+```bash
+# Para ejecutar el bot
+pm2 start index.js --name cgjbot
+
+# Para comprobar el status del bot
+pm2 status
+
+# Para verificar los logs más recientes
+pm2 logs cgjbot
+
+# Para monitorear desempeño y logs en tiempo real
+pm2 monit cgjbot
+
+# Para detener el bot
+pm2 stop cgjbot
+
+# Para eliminar el proceso de pm2 por completo
+pm2 delete cgjbot
+```
+
 ## Estructura
 
 La carpeta [`resources`](./resources/) contiene algunas variables que pueden variar entre ediciones del Caracas Game Jam, ejemplo: mensajes de bienvenida, recursos programados, entre otros.
