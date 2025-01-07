@@ -76,7 +76,7 @@ client.on("messageCreate", async (message) => {
     // Únicamente eliminamos los mensajes que no empiecen por `!acepto`
     // ya que esos se eliminan en el manejador del comando acepto
     if (!message.content.trim().startsWith("!acepto")) {
-      utils.logMessage("main", `Eliminando mensaje del canal de reglas: ${message.conten}`);
+      utils.logMessage("main", `Eliminando mensaje del canal de reglas: ${message.content}`);
       message.delete().catch((err) => {
         utils.logMessage("main", `Error al eliminar mensaje del canal de reglas: ${err}`);
       });
