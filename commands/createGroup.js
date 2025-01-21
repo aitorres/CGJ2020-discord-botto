@@ -73,7 +73,11 @@ module.exports = {
     users.forEach(async (user) => {
       var allowUser = {
         id: user.id,
-        allow: ["VIEW_CHANNEL", "CONNECT", "SPEAK"],
+        allow: [
+          Discord.PermissionsBitField.Flags.ViewChannel,
+          Discord.PermissionsBitField.Flags.Connect,
+          Discord.PermissionsBitField.Flags.Speak,
+        ],
       };
       permissions.push(allowUser);
     });
