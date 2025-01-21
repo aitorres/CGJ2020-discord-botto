@@ -61,11 +61,19 @@ module.exports = {
     var permissions = [
       {
         id: guild.roles.everyone.id,
-        deny: ["VIEW_CHANNEL", "CONNECT", "SPEAK"],
+        deny: [
+          Discord.PermissionsBitField.Flags.ViewChannel,
+          Discord.PermissionsBitField.Flags.Connect,
+          Discord.PermissionsBitField.Flags.Speak,
+        ],
       },
       {
         id: blockRoleId,
-        deny: ["VIEW_CHANNEL", "CONNECT", "SPEAK"],
+        deny: [
+          Discord.PermissionsBitField.Flags.ViewChannel,
+          Discord.PermissionsBitField.Flags.Connect,
+          Discord.PermissionsBitField.Flags.Speak,
+        ],
       },
     ];
 
