@@ -100,6 +100,11 @@ client.on("messageCreate", async (message) => {
       .get("createReactionMessage")
       .execute(message, args, reactRolesData, botMessages.rolesMessage);
   } else if (command === "updatereactionmessage") {
+    // Let's log all existing command keys
+    const keys = client.commands.keys();
+    for (const key of keys) {
+      utils.logMessage("main", `Command key: ${key}`);
+    }
     client.commands
       .get("updateReactionMessage")
       .execute(message);
