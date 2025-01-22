@@ -94,6 +94,7 @@ client.on("messageCreate", async (message) => {
   const command = args.shift().toLowerCase();
   const isAdmin = await utils.isAdmin(message.author, message.guild);
 
+  utils.logMessage("main", `Command: ${command} | isAdmin: ${isAdmin}`);
   if (command == "createReactionMessage" && isAdmin) {
     client.commands
       .get("createReactionMessage")
