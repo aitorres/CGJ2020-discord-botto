@@ -95,11 +95,11 @@ client.on("messageCreate", async (message) => {
   const isAdmin = await utils.isAdmin(message.author, message.guild);
 
   utils.logMessage("main", `Command: ${command} | isAdmin: ${isAdmin}`);
-  if (command == "createReactionMessage" && isAdmin) {
+  if (command == "createreactionmessage" && isAdmin) {
     client.commands
       .get("createReactionMessage")
       .execute(message, args, reactRolesData, botMessages.rolesMessage);
-  } else if (command === "updateReactionMessage") {
+  } else if (command === "updatereactionmessage") {
     client.commands
       .get("updateReactionMessage")
       .execute(message);
