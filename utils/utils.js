@@ -61,7 +61,7 @@ module.exports = {
    * @param {string} message Mensaje a enviar
    */
   async messageAdmins(admins, message) {
-    const maxAttemptsPerAdmin = 4;
+    const maxAttemptsPerAdmin = 3;
     var couldReachAnAdmin = false;
 
     this.logMessage("messageAdmins", `Intentando contactar a los admins ${admins}`);
@@ -86,6 +86,10 @@ module.exports = {
         if (!messageSent) {
           await new Promise((resolve) => setTimeout(resolve, 1000));
         } else {
+          this.logMessage(
+            "messageAdmins",
+            `Mensaje enviado a admin ${guildMember.user.tag} en intento ${i + 1}.`,
+          );
           couldReachAnAdmin = true;
         }
       }
