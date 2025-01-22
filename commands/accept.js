@@ -51,7 +51,8 @@ module.exports = {
     // Enviamos el mensaje a los admins
     const admins = guild.roles.resolve(adminRoleId).members;
 
-    const messageForAdmins = `El usuario **${author}** quiere confirmar. Mensaje:\n${content}`;
+    let messageForAdmins = `El usuario **${author}** ha aceptado las reglas y ahora tiene rol `;
+    messageForAdmins += `de Participante. Mensaje (cédula):\n${content}`;
     await utils.messageAdmins(admins, messageForAdmins);
     utils.logMessage("accept", `Mensaje ${content} enviado a admins`);
   },
