@@ -1,6 +1,5 @@
 const utils = require("../utils/utils.js");
 const Discord = require("discord.js");
-const fs = require("fs");
 
 const botMessages = require("../resources/botMessages.js");
 const config = require("../utils/config.js");

@@ -98,6 +98,10 @@ client.on("messageCreate", async (message) => {
     client.commands
       .get("createReactionMessage")
       .execute(message, args, reactRolesData, botMessages.rolesMessage);
+  } else if (command === "updateReactionMessage" && isAdmin) {
+    client.commands
+      .get("updateReactionMessage")
+      .execute(message);
   } else if (command === "acepto") {
     client.commands
       .get("acepto")

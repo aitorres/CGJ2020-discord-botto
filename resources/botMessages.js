@@ -9,7 +9,7 @@ Por favor, **reacciona a este mensaje con uno de los siguientes emojis** para ob
 
 :paintbrush: **ARTISTA**
 :desktop: **PROGRAMADOR**
-:musical_note: **MÚSICO**
+:musical_note: **MÚSICA Y SONIDO**
 :video_game: **DISEÑADOR**
 `,
 };
