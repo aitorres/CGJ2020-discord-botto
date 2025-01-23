@@ -13,6 +13,7 @@ module.exports = {
   async execute(message, args, blockRoleId) {
     // Validación de los argumentos
     if (args.length < 2) {
+      utils.logMessage("createGroup", "Argumentos insuficientes para crear un grupo.");
       await message.author
         .send("Debes especificar el nombre e integrantes del equipo.")
         .catch((err) => {
@@ -23,9 +24,11 @@ module.exports = {
 
     // Nombre del equipo
     const teamName = args[0];
+    utils.logMessage("createGroup", `Creando grupo ${teamName}...`);
 
     // Extrayendo usuarios del mensaje
     const users = [...message.mentions.members.values()];
+    utils.logMessage("createGroup", `Usuarios a agregar al grupo: ${users}`);
     if (users.length <= 0) {
       await message.author
         .send("Debe haber al menos un usuario para hacer el equipo.")
