@@ -109,5 +109,11 @@ module.exports = {
     });
 
     utils.logMessage("createGroup", `Grupo ${teamName} creado con éxito`);
+
+    // Finally, delete the message
+    message.delete().catch((err) => {
+      utils.logMessage("createGroup", `Error al eliminar mensaje: ${err}`);
+    });
+    utils.logMessage("createGroup", `Mensaje eliminado con éxito`);
   },
 };
