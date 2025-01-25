@@ -60,23 +60,23 @@ module.exports = {
     await textChannel.setParent(category);
     await voiceChannel.setParent(category);
 
+    const permissionFlags = [
+      Discord.PermissionsBitField.Flags.ViewChannel,
+      Discord.PermissionsBitField.Flags.Connect,
+      Discord.PermissionsBitField.Flags.Speak,
+      Discord.PermissionsBitField.Flags.SendMessages,
+      Discord.PermissionsBitField.Flags.Stream,
+    ];
+
     // Los permisos base serán rechazar el acceso público, y el del rol de participantes
     var permissions = [
       {
         id: guild.roles.everyone.id,
-        deny: [
-          Discord.PermissionsBitField.Flags.ViewChannel,
-          Discord.PermissionsBitField.Flags.Connect,
-          Discord.PermissionsBitField.Flags.Speak,
-        ],
+        deny: permissionFlags,
       },
       {
         id: blockRoleId,
-        deny: [
-          Discord.PermissionsBitField.Flags.ViewChannel,
-          Discord.PermissionsBitField.Flags.Connect,
-          Discord.PermissionsBitField.Flags.Speak,
-        ],
+        deny: permissionFlags,
       },
     ];
 
@@ -84,11 +84,7 @@ module.exports = {
     users.forEach(async (user) => {
       var allowUser = {
         id: user.id,
-        allow: [
-          Discord.PermissionsBitField.Flags.ViewChannel,
-          Discord.PermissionsBitField.Flags.Connect,
-          Discord.PermissionsBitField.Flags.Speak,
-        ],
+        allow: permissionFlags,
       };
       permissions.push(allowUser);
     });
