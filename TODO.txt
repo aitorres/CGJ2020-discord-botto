@@ -1,2 +1,4 @@
 - [ ] Have two "reglas" channels, one that is exclusively for welcoming people and for them to accept, and another that's just for registered users. This way we 1) mitigate the possibility of people reading each other's cedulas if the bot goes wrong, 2) don't bother people with a notification when others accept
 - [ ] No need for cedula when accepting rules
+- [ ] How to add someone to an existing group manually?
+

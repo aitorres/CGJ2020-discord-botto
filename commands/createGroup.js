@@ -38,6 +38,17 @@ module.exports = {
       return;
     }
 
+    // Count the amount of args and the amount of users, if they match then we have
+    // no title for the group
+    if (args.length === users.length) {
+      await message.author
+        .send("Debes especificar un nombre para el grupo.")
+        .catch((err) => {
+          utils.logMessage("createGroup", `Error al enviar mensaje de alerta: ${err}`);
+        });
+      return;
+    }
+
     utils.logMessage("createGroup", `Creando equipo ${teamName} con usuarios: ${users}`);
     const guild = message.guild;
     const category = await guild.channels.create({
