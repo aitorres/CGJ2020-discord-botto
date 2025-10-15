@@ -23,7 +23,16 @@ Luego, copia o renombra el archivo [`.env.sample`](./.env.sample) como `.env` y 
 
 Puedes obtener los IDs requeridos desde la interfaz de Discord habilitando el _Developer mode_ en las opciones avanzadas.
 
-## Despliegue
+## Despliegue con Docker
+
+El proyecto incluye un `Dockerfile` para facilitar el despliegue del bot en un servidor u orquestrador de contenedores.
+
+```bash
+docker build -t cgjbot .
+docker run --rm --name cgjbot --env-file .env cgjbot
+```
+
+## Despliegue manual
 
 Instala `pm2` en el servidor en donde se va a ejecutar el bot:
 
