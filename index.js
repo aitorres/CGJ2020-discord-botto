@@ -126,5 +126,7 @@ client.on("messageCreate", async (message) => {
     client.commands.get("refresh").execute(message, reactRolesData);
   } else if (command === "admin") {
     client.commands.get("admin").execute(message, args, config.adminRoleId);
+  } else if (command === "archivar" && isAdmin) {
+    client.commands.get("archive").execute(message, args);
   }
 });
