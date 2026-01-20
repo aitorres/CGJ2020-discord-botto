@@ -49,7 +49,7 @@ const reactRolesData = {
 };
 
 // Once client is ready, we start everything!
-client.once("ready", async () => {
+client.once("clientReady", async () => {
   // Scheduling bot messages (resources, etc)
   botSetup.scheduleBotMessages(client);
 
