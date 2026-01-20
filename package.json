@@ -10,14 +10,14 @@
     "lint-and-prettier": "npm run prettier && npm run lint"
   },
   "dependencies": {
-    "discord.js": "^14.16.3",
+    "discord.js": "^14.25.1",
     "dotenv": "^17.2.3"
   },
   "devDependencies": {
-    "eslint": "^9.37.0",
+    "eslint": "^9.39.2",
     "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-prettier": "^5.5.4",
-    "prettier": "^3.6.2"
+    "eslint-plugin-prettier": "^5.5.5",
+    "prettier": "^3.8.0"
   },
   "prettier": {
     "printWidth": 100,
