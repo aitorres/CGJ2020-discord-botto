@@ -28,10 +28,10 @@ module.exports = {
       utils.logMessage("accept", `Mensaje de !acepto no borrado :( Error: ${err}`);
     });
 
-    // Caso: el usuario envió !acepto sin la cédula
+    // Caso: el usuario envió !acepto sin el nombre
     if (!args.length) {
-      utils.logMessage("accept", `El usuario no envió su cédula`);
-      author.send("Por favor escribe !acepto (cedula)").catch((err) => {
+      utils.logMessage("accept", `El usuario no envió su nombre`);
+      author.send("Por favor escribe !acepto (nombre)").catch((err) => {
         utils.logMessage("accept", `Mensaje no enviado :( Error: ${err}`);
       });
       return;
@@ -52,7 +52,7 @@ module.exports = {
     const admins = guild.roles.resolve(adminRoleId).members;
 
     let messageForAdmins = `El usuario **${author}** ha aceptado las reglas y ahora tiene rol `;
-    messageForAdmins += `de Participante. Mensaje (cédula):\n${content}`;
+    messageForAdmins += `de Participante. Mensaje (nombre):\n${content}`;
     await utils.messageAdmins(admins, messageForAdmins);
     utils.logMessage("accept", `Mensaje ${content} enviado a admins`);
   },
