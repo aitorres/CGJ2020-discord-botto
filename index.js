@@ -128,5 +128,7 @@ client.on("messageCreate", async (message) => {
     client.commands.get("admin").execute(message, args, config.adminRoleId);
   } else if (command === "archivar" && isAdmin) {
     client.commands.get("archive").execute(message, args);
+  } else if (command === "reiniciar_canal" && isAdmin) {
+    client.commands.get("restartChannel").execute(message, args);
   }
 });
